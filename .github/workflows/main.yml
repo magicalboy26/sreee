@@ -1,29 +1,21 @@
-name: Deploy Node.js Back-end
+name: Self-Hosted Runner Example
 
 on:
   push:
     branches:
-      - main  # Replace with your main branch name
+      - main
 
 jobs:
-  deploy:
-    runs-on: self-hosted  # This should be under the "deploy" job, not "on"
-
+  build:
+    runs-on: self-hosted
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Choose an appropriate Node.js version
-
-      - name: Install dependencies
+      - name: Build and Test
         run: |
-          cd server
-          npm ci
-
-      - name: Deploy to Hosting Service
-        run: |
-          cd server
-          # Add your deployment script here (e.g., pm2, forever, etc.)
+           ls
+          # For example:
+          # npm install
+          # npm run build
+          # npm test
