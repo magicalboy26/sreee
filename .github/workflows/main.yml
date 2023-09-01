@@ -1,30 +1,17 @@
-name: Deploy README
-
-#on:
-#  push:
-#    paths:
-#      - 'README.md'
-
-on:
-  push:
-    branches:
-      - main
-
+on: push
+name: 🚀 Deploy website on push
 jobs:
-  deploy:
-    runs-on: self-hosted
-
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    working-directory: /home/github/sreee/
     steps:
-#      - name: Checkout code
-#        uses: actions
-
-#      - name: Set up SSH
-#        uses: webfactory/ssh-agent@v0.5.4
-#        with:
-#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-#          known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-#          ssh-strict: 'true'
-
-      - name: Deploy README
- #       run: scp README.md username@your-server:/path/to/destination/
-        run: ls
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ftp://139.59.75.156
+        username: hari
+        password: ${{ secrets.ftp_password }}
