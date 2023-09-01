@@ -1,10 +1,13 @@
 on: push
-name: 🚀 Deploy website on push
+name: Deploy website on push
 jobs:
   web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
+    name: Deploy
     working-directory: /home/github/sreee/
+
+  deploy:
+    runs-on: ubuntu-latest
+
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
