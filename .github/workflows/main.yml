@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Create Directory for Deployment
+        run: |
+          # Create the directory if it doesn't exist
+          mkdir -p /home/github/sreee
+
       - name: Deploy to FTP
         run: |
           # Install lftp if it's not already available
