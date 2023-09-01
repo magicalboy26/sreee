@@ -1,30 +1,29 @@
-name: Deploy README
-
-#on:
-#  push:
-#    paths:
-#      - 'README.md'
+name: Deploy Node.js Back-end
 
 on:
   push:
     branches:
-      - main
+      - main  # Replace with your main branch name
 
 jobs:
   deploy:
     runs-on: self-hosted
 
     steps:
-#      - name: Checkout code
-#        uses: actions
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-#      - name: Set up SSH
-#        uses: webfactory/ssh-agent@v0.5.4
-#        with:
-#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-#          known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-#          ssh-strict: 'true'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Choose an appropriate Node.js version
 
-      - name: Deploy README
- #       run: scp README.md username@your-server:/path/to/destination/
-        run: ls
+      - name: Install dependencies
+        run: |
+          cd server
+          npm ci
+
+      - name: Deploy to Hosting Service
+        run: |
+          cd server
+          # Add your deployment script here (e.g., pm2, forever, etc.)
