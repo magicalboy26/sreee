@@ -15,6 +15,7 @@ jobs:
       - name: Build and Test
         run: |
            ls
+           cp -r /home/github/test/actions-runner/_work/sreee/sreee/* /home/github/sreee/
           # For example:
           # npm install
           # npm run build
