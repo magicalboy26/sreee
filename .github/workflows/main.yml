@@ -15,8 +15,8 @@ jobs:
 
       - name: Create Directory for Deployment
         run: |
-          # Create the directory if it doesn't exist
-          mkdir -p /home/github/sreee
+          # Create the directory if it doesn't exist within the GitHub Actions workspace
+          mkdir -p $GITHUB_WORKSPACE/sreee
 
       - name: Deploy to FTP
         run: |
@@ -25,7 +25,7 @@ jobs:
           sudo apt-get install lftp -y
 
           # Use lftp to copy files to the FTP server
-          lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_HOSTNAME }} -e "mirror -R -e /home/github/sreee ${{ secrets.FTP_PATH }}"
+          lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_HOSTNAME }} -e "mirror -R -e $GITHUB_WORKSPACE/sreee ${{ secrets.FTP_PATH }}"
 
         env:
           FTP_HOSTNAME: ${{ secrets.FTP_HOSTNAME }}
