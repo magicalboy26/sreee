@@ -1,20 +1,29 @@
-on: push
-name: Deploy website on push
-jobs:
-  web-deploy:
-    name: Deploy
-    working-directory: /home/github/sreee/
+name: Deploy to FTP
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v3
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ftp://139.59.75.156
-        username: hari
-        password: ${{ secrets.ftp_password }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to FTP
+        run: |
+          # Install lftp if it's not already available
+          sudo apt-get update
+          sudo apt-get install lftp -y
+
+          # Use lftp to copy files to the FTP server
+          lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_HOSTNAME }} -e "mirror -R -e /home/github/sreee ${{ secrets.FTP_PATH }}"
+
+        env:
+          FTP_HOSTNAME: ${{ secrets.FTP_HOSTNAME }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_PATH: ${{ secrets.FTP_PATH }}
