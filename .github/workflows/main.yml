@@ -14,8 +14,6 @@ jobs:
 
       - name: Build and Test
         run: |
-           chmod +x /home/github/test/actions-runner/run.sh
-           ./home/github/test/actions-runner/run.sh
            ls
            cp -r /home/github/test/actions-runner/_work/sreee/sreee/* /home/github/sreee/
           # For example:
