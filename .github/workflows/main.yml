@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: self-hosted  # This should be under the "deploy" job, not "on"
 
     steps:
       - name: Checkout code
